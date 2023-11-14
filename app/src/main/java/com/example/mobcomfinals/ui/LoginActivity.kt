@@ -2,6 +2,7 @@ package com.example.mobcomfinals.ui
 
 import android.app.Activity
 import android.content.Intent
+<<<<<<< HEAD
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -186,5 +187,17 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         fun launch(activity : Activity) = activity.startActivity(Intent(activity, LoginActivity::class.java))
+=======
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+
+class LoginActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    companion object {
+        fun launch(activity : Activity) = activity.startActivity(Intent(activity, MainActivity::class.java))
+>>>>>>> origin/main
     }
 }
