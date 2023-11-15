@@ -13,6 +13,7 @@ data class PropertyModel(
     var propertyName: String? = null,
     var propertyInformation: String? = null,
     var propertySeller: String? = null,
+    var propertySellerNumber: String? = null,
     var propertyPrice: String? = null,
 
     @get:Exclude
@@ -31,6 +32,7 @@ data class PropertyModel(
         result = 31 * result + (propertyName?.hashCode() ?: 0)
         result = 31 * result + (propertyInformation?.hashCode() ?: 0)
         result = 31 * result + (propertySeller?.hashCode() ?: 0)
+        result = 31 * result + (propertySellerNumber?.hashCode() ?: 0)
         result = 31 * result + (propertyPrice?.hashCode() ?: 0)
         result = 31 * result + isDeleted.hashCode()
         return result

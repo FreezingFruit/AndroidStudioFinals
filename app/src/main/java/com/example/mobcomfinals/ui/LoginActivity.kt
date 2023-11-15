@@ -2,7 +2,7 @@ package com.example.mobcomfinals.ui
 
 import android.app.Activity
 import android.content.Intent
-<<<<<<< HEAD
+
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

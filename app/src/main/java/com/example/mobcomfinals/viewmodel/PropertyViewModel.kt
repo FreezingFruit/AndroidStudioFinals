@@ -125,12 +125,12 @@ class PropertyViewModel : ViewModel() {
             }
     }
 
-    fun saveProfile(img : ByteArray, propertyName : String, propertyInformation : String, propertySeller:String, propertyPrice:String) {
+    fun saveProfile(img : ByteArray, propertyName : String, propertyInformation : String, propertySeller:String, propertySellerNumber:String, propertyPrice:String) {
         val userRef = fb_storage.child("$propertyName.jpg")
 
         userRef.putBytes(img).addOnSuccessListener {
             userRef.downloadUrl.addOnSuccessListener {
-                val property = PropertyModel(null, it.toString(), propertyName, propertyInformation, propertySeller, propertyPrice, false)
+                val property = PropertyModel(null, it.toString(), propertyName, propertyInformation, propertySeller, propertySellerNumber, propertyPrice, false)
                 refProperty.child(propertyName).setValue(property)
 
             }.addOnFailureListener {

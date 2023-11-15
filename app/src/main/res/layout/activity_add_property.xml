@@ -63,7 +63,26 @@
             android:hint="Property Email Seller"
             />
 
+
+
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_propertyNumberSeller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Property Seller Number"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -76,7 +95,7 @@
             android:id="@+id/input_propertyPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Property Email Seller"
+            android:hint="Property Price"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -111,7 +130,7 @@
 
 
     <Button
-        android:id="@+id/btn_add_contact"
+        android:id="@+id/btn_add_property"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Property"

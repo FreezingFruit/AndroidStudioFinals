@@ -31,7 +31,7 @@ class AddPropertyActivity : AppCompatActivity() {
             resultLauncher.launch("image/*")
         }
 
-        binding.btnAddContact.setOnClickListener{
+        binding.btnAddProperty.setOnClickListener{
             val bitmap = (binding.ivSelectedImage.drawable as BitmapDrawable).bitmap
             val baos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
@@ -49,6 +49,10 @@ class AddPropertyActivity : AppCompatActivity() {
                 status = false
                 binding.inputPropertyEmailSeller.error = "Empty field"
             }
+            if(binding.inputPropertyNumberSeller.text.isNullOrBlank()){
+                status = false
+                binding.inputPropertyNumberSeller.error = "Empty field"
+            }
             if(binding.inputPropertyPrice.text.isNullOrBlank()){
                 status = false
                 binding.inputPropertyPrice.error = "Empty field"
@@ -61,6 +65,7 @@ class AddPropertyActivity : AppCompatActivity() {
                         binding.inputPropertyName.text.toString(),
                         binding.inputPropertyDescription.text.toString(),
                         binding.inputPropertyEmailSeller.text.toString(),
+                        binding.inputPropertyNumberSeller.text.toString(),
                         binding.inputPropertyPrice.text.toString()
                     )
                     startActivity(Intent(this, MainActivity::class.java))
@@ -79,11 +84,11 @@ class AddPropertyActivity : AppCompatActivity() {
     }
 
     private fun restrictions(): Boolean {
-//        if (binding.inputPhone.text.toString().length != 11){
-//
-//            binding.inputPhone.error = "Phone number should be 11 digits long"
-//            return false
-//        }
+        if (binding.inputPropertyNumberSeller.text.toString().length != 11){
+
+            binding.inputPropertyNumberSeller.error = "Phone number should be 11 digits long"
+            return false
+        }
         if(binding.inputPropertyEmailSeller.text.toString().isNotEmpty()){
             val pattern: Pattern = Pattern.compile("@.+")
             val matcher = pattern.matcher(binding.inputPropertyEmailSeller.text.toString())

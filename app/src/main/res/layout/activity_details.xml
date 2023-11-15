@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp"
     android:id="@+id/propertyDetails"
-    >
+    tools:context=".ui.PropertyActivity">
 
     <ImageView
         android:id="@+id/reImage"
@@ -44,12 +45,32 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/rePrice"
+        android:id="@+id/reSellerNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/reSeller"
         android:layout_marginTop="8dp"
+        android:text="Real Estate SELLER NUMBER"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/rePrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reSellerNum"
+        android:layout_marginTop="8dp"
         android:text="Real Estate PRICE"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btn_editProperty"
+        android:layout_width="395dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="321dp"
+        android:layout_marginEnd="0dp"
+        android:text="Edit Property" />
 
 </RelativeLayout>
