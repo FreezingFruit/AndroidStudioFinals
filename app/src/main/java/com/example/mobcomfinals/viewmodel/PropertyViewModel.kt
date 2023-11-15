@@ -19,7 +19,7 @@ import java.util.Locale
 class PropertyViewModel : ViewModel() {
     private val database = FirebaseDatabase.getInstance()
     private val refProperty = database.getReference(NODE_PROPERTY)
-    private var fb_storage = FirebaseStorage.getInstance().getReference(NODE_IMAGES)
+    private var fb_storage = FirebaseStorage.getInstance().getReference(NODE_PROPERTY_IMAGES)
     private var state = MutableLiveData<StorageStates>()
 
     private val _result = MutableLiveData<Exception?>()
