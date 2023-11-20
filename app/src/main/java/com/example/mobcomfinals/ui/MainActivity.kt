@@ -1,5 +1,6 @@
 package com.example.mobcomfinals.ui
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -39,5 +40,9 @@ class MainActivity : AppCompatActivity() {
         binding.btnAddProperty.setOnClickListener {
             startActivity(Intent(this, AddPropertyActivity::class.java))
         }
+    }
+
+    companion object {
+        fun launch(activity : Activity) = activity.startActivity(Intent(activity, MainActivity::class.java))
     }
 }

@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mobcomfinals.model.ProfileModel
+import com.example.mobcomfinals.states.StorageStates
+import com.example.mobcomfinals.viewmodel.NODE_USER_IMAGES
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.GoogleAuthProvider
@@ -16,12 +18,15 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 
 class AuthenticationViewModel:ViewModel() {
     private val auth = Firebase.auth
     private val ref = Firebase.database.reference
+    private var state = MutableLiveData<StorageStates>()
     private var states = MutableLiveData<AuthenticationStates>()
     private val userBalance = MutableLiveData<String>()
+    private var fb_storage = FirebaseStorage.getInstance().getReference(NODE_USER_IMAGES)
 
 
     private lateinit var gso: GoogleSignInOptions
@@ -157,66 +162,24 @@ class AuthenticationViewModel:ViewModel() {
     }
 
 
-    fun createUserRecord (email : String, name : String, money : String) {
-        val users = ProfileModel(null,email,name,money)
+    fun createUserRecord (email : String, contactNumber : String , username : String){
+        val users = ProfileModel(null,email,contactNumber, username)
 
-        ref.child("bankapp/users/" + auth.currentUser?.uid).setValue(users).addOnCompleteListener {
+        ref.child("app/users/" + auth.currentUser?.uid).setValue(users).addOnCompleteListener {
             if(it.isSuccessful) states.value = AuthenticationStates.ProfileUpdated
             else states.value = AuthenticationStates.Error
         }
+
     }
 
-    fun getUserBalance(): LiveData<String> {
-        return userBalance
-    }
-    fun updateUserBalance(newBalance: String) {
-        //   model.profileModel.money = newBalance (error)
-    }
-    fun updateBalance(){}
-
-    fun saveUserBalanceToDatabase(newBalance: String) {
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            val currentUserEmail = currentUser.email
-            if (currentUserEmail != null) {
-                val userMoneyRef = ref.child("bankapp/users/$currentUserEmail/money")
-                userMoneyRef.setValue(newBalance)
-            }
-        }
-    }
 
     fun getUserUid(): String?{
         return auth.currentUser?.uid
     }
 
-    fun getUserMoney(uid: String?, callback: (Double) -> Unit){
-        ref.child("bankapp/users/$uid/money").get().addOnSuccessListener { dataSnapshot->
-            val money = dataSnapshot.value as String
-            Log.d("test123", money)
-            if (money != null){
-                callback(money.toDouble())
-            }else{
-                callback(0.0)
-            }
 
 
-        }
 
-    }
-
-    fun paymentSenderToReceiver(uid: String?, payment:Double){
-        getUserMoney(auth.currentUser?.uid) { money ->
-            val newAmount = money - payment
-            Log.d("test123", money.toString())
-            ref.child("bankapp/users/${auth.currentUser?.uid}/money").setValue(newAmount.toString())
-        }
-        getUserMoney(uid){money ->
-            val newAmount = money + payment
-
-            ref.child("bankapp/users/$uid/money").setValue(newAmount.toString())
-
-        }
-    }
 
 
 

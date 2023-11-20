@@ -33,8 +33,10 @@ class SignUp : AppCompatActivity() {
     private fun handleState(state : AuthenticationStates) {
         when(state) {
             is AuthenticationStates.SignedUp -> viewModel.createUserRecord(
+
                 binding.tieEmail.text.toString(),
-                binding.tieName.text.toString(), "0")
+                binding.tieName.text.toString(),
+                binding.tieContactNumber.toString())
 
 
             is AuthenticationStates.ProfileUpdated -> {
