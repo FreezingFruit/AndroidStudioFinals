@@ -78,7 +78,7 @@ class AuthenticationViewModel:ViewModel() {
             }
 
         }
-        ref.child("bankapp/users/" + auth.currentUser?.uid).addValueEventListener(objectListener)
+        ref.child("app/users/" + auth.currentUser?.uid).addValueEventListener(objectListener)
     }
 
     fun updateUserProfile(newName : String) {

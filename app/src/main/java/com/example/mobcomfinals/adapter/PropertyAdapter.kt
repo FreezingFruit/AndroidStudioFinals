@@ -2,6 +2,7 @@ package com.example.mobcomfinals.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -61,6 +62,8 @@ class PropertyAdapter(
             binding.reSeller.text = property.propertySeller
             binding.reSellerNum.text = property.propertySellerNumber
             binding.rePrice.text = property.propertyPrice
+            binding.reLocation.text = property.propertyLocation
+
 
             Glide.with(context)
                 .load(property.propertyPicture)

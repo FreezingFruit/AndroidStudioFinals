@@ -1,9 +1,11 @@
 package com.example.mobcomfinals.viewmodel
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.mobcomfinals.adapter.PropertyAdapter
 import com.example.mobcomfinals.model.PropertyModel
 import com.example.mobcomfinals.states.StorageStates
 import com.google.firebase.database.ChildEventListener
@@ -75,14 +77,25 @@ class PropertyViewModel : ViewModel() {
         refProperty.addChildEventListener(childEventListener)
     }
 
-    fun updateProperty(property: PropertyModel){
-        refProperty.child(property.id!!).setValue(property).addOnCompleteListener {
-            if(it.isSuccessful){
-                _result.value = null
-            }else{
-                _result.value = it.exception
+    fun updateProperty(img:ByteArray, property: PropertyModel){
+        val propertyRef = fb_storage.child("${property.id!!}.jpg")
+
+        propertyRef.putBytes(img).addOnSuccessListener {
+            propertyRef.downloadUrl.addOnSuccessListener { uri ->
+                property.id?.let {
+                    val updatedProperty = PropertyModel(it, property.propertyPicture, property.propertyName, property.propertyInformation, property.propertySeller, property.propertySellerNumber, property.propertyPrice, property.propertyLocation, false)
+                    refProperty.child(it).setValue(updatedProperty)
+
+
+
+
+                }
+
+
             }
         }
+
+
     }
 
     fun deleteProperty(property: PropertyModel){
@@ -125,21 +138,33 @@ class PropertyViewModel : ViewModel() {
             }
     }
 
-    fun saveProfile(img : ByteArray, propertyName : String, propertyInformation : String, propertySeller:String, propertySellerNumber:String, propertyPrice:String) {
-        val userRef = fb_storage.child("$propertyName.jpg")
+    fun saveProfile(img : ByteArray, propertyName : String, propertyInformation : String, propertySeller:String, propertySellerNumber:String, propertyPrice:String, propertyLocation:String) {
+        val newKey = refProperty.push().key
 
-        userRef.putBytes(img).addOnSuccessListener {
-            userRef.downloadUrl.addOnSuccessListener {
-                val property = PropertyModel(null, it.toString(), propertyName, propertyInformation, propertySeller, propertySellerNumber, propertyPrice, false)
-                refProperty.child(propertyName).setValue(property)
+        val propertyRef = fb_storage.child("$newKey.jpg")
+        Log.d("test123", "${fb_storage.child("$newKey.jpg")}")
 
-            }.addOnFailureListener {
-                state.value = StorageStates.StorageFailed(it.message)
+        propertyRef.putBytes(img).addOnSuccessListener {
+            propertyRef.downloadUrl.addOnSuccessListener {
+                val property = PropertyModel(null, it.toString(), propertyName, propertyInformation, propertySeller, propertySellerNumber, propertyPrice, propertyLocation, false)
+                refProperty.child(newKey!!).setValue(property)
+
+                Log.d("test123", "${refProperty.child("$newKey")}")
             }
-
-        }.addOnFailureListener {
-            state.value = StorageStates.StorageFailed(it.message)
         }
+
+//        userRef.putBytes(img).addOnSuccessListener {
+//            userRef.downloadUrl.addOnSuccessListener {
+//                val property = PropertyModel(null, it.toString(), propertyName, propertyInformation, propertySeller, propertySellerNumber, propertyPrice, propertyLocation, false)
+//                refProperty.child(modifiedKey).setValue(property)
+//
+//            }.addOnFailureListener {
+//                state.value = StorageStates.StorageFailed(it.message)
+//            }
+//
+//        }.addOnFailureListener {
+//            state.value = StorageStates.StorageFailed(it.message)
+//        }
     }
 
     override fun onCleared() {

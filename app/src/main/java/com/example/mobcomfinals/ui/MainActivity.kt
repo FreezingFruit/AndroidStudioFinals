@@ -16,7 +16,8 @@ import com.example.mobcomfinals.viewmodel.PropertyViewModel
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardBinding
     private lateinit var propertyAdapter: PropertyAdapter
-    private lateinit var viewModel: PropertyViewModel
+    private lateinit var propertyViewModel: PropertyViewModel
+    private lateinit var authenticationViewModel: AuthenticationViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,20 +26,53 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[PropertyViewModel::class.java]
-        propertyAdapter = PropertyAdapter(this, ArrayList(), viewModel)
+        authenticationViewModel = AuthenticationViewModel()
+        authenticationViewModel.getStates().observe(this@MainActivity) {
+            handleState(it)
+        }
+        authenticationViewModel.getUserProfile()
+
+
+        //-----------------------------------------------------------
+        propertyViewModel = ViewModelProvider(this)[PropertyViewModel::class.java]
+        propertyAdapter = PropertyAdapter(this, ArrayList(), propertyViewModel)
         binding.recyclerViewRealEstate.adapter = propertyAdapter
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerViewRealEstate.layoutManager = layoutManager
 
 
-        viewModel.property.observe(this, Observer {
+        propertyViewModel.property.observe(this, Observer {
             propertyAdapter.addProperty(it)
         })
-        viewModel.getRealtimeUpdate()
+        propertyViewModel.getRealtimeUpdate()
+        //----------------------------------------------------------------
+
+
+        binding.btnLogout.setOnClickListener {
+            authenticationViewModel.logOut()
+        }
 
         binding.btnAddProperty.setOnClickListener {
             startActivity(Intent(this, AddPropertyActivity::class.java))
+        }
+    }
+
+    private fun handleState(state : AuthenticationStates) {
+        when(state) {
+            is AuthenticationStates.Default -> {
+
+            }
+            AuthenticationStates.Error -> TODO()
+            AuthenticationStates.LogOut -> {
+                LoginActivity.launch(this@MainActivity)
+                finish()
+            }
+            AuthenticationStates.UserDeleted -> {
+                LoginActivity.launch(this@MainActivity)
+                finish()
+            }
+            AuthenticationStates.VerificationEmailSent -> TODO()
+            else -> {}
         }
     }
 

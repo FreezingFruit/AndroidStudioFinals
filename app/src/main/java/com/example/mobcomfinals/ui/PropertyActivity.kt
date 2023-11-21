@@ -26,6 +26,7 @@ class PropertyActivity : AppCompatActivity() {
         binding.reDesc.text = property?.propertyInformation
         binding.reSeller.text = property?.propertySeller
         binding.rePrice.text = property?.propertyPrice
+        binding.reLocation.text = property?.propertyLocation
 
         Glide.with(this)
             .load(property?.propertyPicture)
