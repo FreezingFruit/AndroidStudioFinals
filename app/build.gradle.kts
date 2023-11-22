@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.mobcomfinals"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.mobcomfinals"
@@ -57,14 +57,13 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     //FIREBASE
-    implementation("com.google.firebase:firebase-database:20.3.0")
-    implementation("com.google.firebase:firebase-storage:20.3.0")
+    implementation ("com.google.firebase:firebase-database:20.1.0")
     implementation ("com.google.firebase:firebase-auth-ktx:22.2.0")
     implementation ("com.firebaseui:firebase-ui-auth:7.2.0")
-    implementation(platform ("com.google.firebase:firebase-bom:32.3.1"))
+    implementation (platform ("com.google.firebase:firebase-bom:32.3.1"))
     implementation ("com.google.firebase:firebase-analytics-ktx")
     implementation ("com.google.firebase:firebase-database-ktx")
-
+    implementation ("com.google.firebase:firebase-storage-ktx:20.2.1")
     //GLIDE
     implementation ("com.github.bumptech.glide:glide:4.11.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")

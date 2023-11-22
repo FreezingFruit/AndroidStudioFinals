@@ -66,7 +66,8 @@ class AddPropertyActivity : AppCompatActivity() {
                         binding.inputPropertyDescription.text.toString(),
                         binding.inputPropertyEmailSeller.text.toString(),
                         binding.inputPropertyNumberSeller.text.toString(),
-                        binding.inputPropertyPrice.text.toString()
+                        binding.inputPropertyPrice.text.toString(),
+                        binding.inputPropertyLocation.text.toString()
                     )
                     startActivity(Intent(this, MainActivity::class.java))
                 }

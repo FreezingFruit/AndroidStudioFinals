@@ -29,12 +29,14 @@ class EditPropertyActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[PropertyViewModel::class.java]
         val property = intent.getParcelableExtra<PropertyModel>("property")
+        val position = intent.getStringExtra("position" )
 
         binding.inputPropertyName.setText(property?.propertyName)
         binding.inputPropertyDescription.setText(property?.propertyInformation)
         binding.inputPropertyEmailSeller.setText(property?.propertySeller)
         binding.inputPropertyNumberSeller.setText(property?.propertySellerNumber)
         binding.inputPropertyPrice.setText(property?.propertyPrice)
+        binding.inputPropertyLocation.setText(property?.propertyLocation)
 
         Glide.with(this)
             .load(property?.propertyPicture)
@@ -72,16 +74,23 @@ class EditPropertyActivity : AppCompatActivity() {
                 binding.inputPropertyPrice.error = "Empty field"
             }
 
+            if(binding.inputPropertyLocation.text.isNullOrBlank()){
+                status = false
+                binding.inputPropertyLocation.error = "Empty field"
+            }
+
             if (status){
                 if (restrictions()){
-                    viewModel.saveProfile(
-                        baos.toByteArray(),
-                        binding.inputPropertyName.text.toString(),
-                        binding.inputPropertyDescription.text.toString(),
-                        binding.inputPropertyEmailSeller.text.toString(),
-                        binding.inputPropertyNumberSeller.text.toString(),
-                        binding.inputPropertyPrice.text.toString(),
-                    )
+                    property?.propertyName = binding.inputPropertyName.text.toString()
+                    property?.propertyInformation = binding.inputPropertyDescription.text.toString()
+                    property?.propertySeller = binding.inputPropertyEmailSeller.text.toString()
+                    property?.propertySellerNumber = binding.inputPropertyNumberSeller.text.toString()
+                    property?.propertyPrice = binding.inputPropertyPrice.text.toString()
+                    property?.propertyLocation = binding.inputPropertyLocation.text.toString()
+
+
+                    viewModel.updateProperty(baos.toByteArray(),property!!)
+
                     startActivity(Intent(this, MainActivity::class.java))
                 }
             }

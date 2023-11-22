@@ -24,7 +24,7 @@ class SignUp : AppCompatActivity() {
         binding.btnSignup.setOnClickListener {
             viewModel.signUp(
                 binding.tieEmail.text.toString(),
-                binding.tiePassword.text.toString()
+                binding.tiePassword.text.toString(),
             )
         }
 
@@ -33,8 +33,10 @@ class SignUp : AppCompatActivity() {
     private fun handleState(state : AuthenticationStates) {
         when(state) {
             is AuthenticationStates.SignedUp -> viewModel.createUserRecord(
+
                 binding.tieEmail.text.toString(),
-                binding.tieName.text.toString(), "0")
+                binding.tieContactNumber.text.toString(),
+                binding.tieName.text.toString())
 
 
             is AuthenticationStates.ProfileUpdated -> {

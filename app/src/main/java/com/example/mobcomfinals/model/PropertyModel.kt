@@ -15,9 +15,10 @@ data class PropertyModel(
     var propertySeller: String? = null,
     var propertySellerNumber: String? = null,
     var propertyPrice: String? = null,
+    var propertyLocation: String? = null,
 
     @get:Exclude
-    var isDeleted: Boolean = false
+    var isDeleted: Boolean? = null
 
 ) : Parcelable {
     override fun equals(other: Any?): Boolean {
@@ -34,6 +35,7 @@ data class PropertyModel(
         result = 31 * result + (propertySeller?.hashCode() ?: 0)
         result = 31 * result + (propertySellerNumber?.hashCode() ?: 0)
         result = 31 * result + (propertyPrice?.hashCode() ?: 0)
+        result = 31 * result + (propertyLocation?.hashCode() ?: 0)
         result = 31 * result + isDeleted.hashCode()
         return result
     }
