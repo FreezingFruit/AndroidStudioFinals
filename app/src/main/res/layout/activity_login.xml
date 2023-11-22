@@ -90,6 +90,5 @@
         android:layout_alignParentBottom="true"
         android:baselineAlignBottom="false"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background"
         app:srcCompat="@drawable/c" />
 </RelativeLayout>

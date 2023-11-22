@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
         with(binding) {
             bLogin.setOnClickListener {
                 viewModel.signIn(
-                    binding.eTEmail.text.toString(),
+                    binding.eTUsername.text.toString(),
                     binding.eTPassword.text.toString()
                 )
             }
