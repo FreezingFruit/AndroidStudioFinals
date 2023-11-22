@@ -1,48 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp"
-    android:layout_centerInParent="true"
-    tools:context=".ui.LoginActivity">
+    android:layout_centerInParent="true">
 
-    <EditText
-        android:id="@+id/eTEmail"
+    <ImageView
+        android:id="@+id/topbanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
-        android:layout_marginTop="16dp"
-        android:layout_centerVertical="true" />
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        android:src="@drawable/b" />
+
+    <EditText
+        android:id="@+id/eTUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logologin"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="false"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="30dp"
+        android:hint="Username" />
 
     <EditText
         android:id="@+id/eTPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/eTEmail"
+        android:layout_below="@id/eTUsername"
         android:layout_marginTop="16dp"
         android:inputType="textPassword"
         android:hint="Password"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginLeft="30dp" />
 
     <Button
         android:id="@+id/bLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_below="@id/eTPassword"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:text="Login"
+        android:background="@color/colorPrimary"
+        android:text="Login" />
+
+    <TextView
+        android:id="@+id/tVForgot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bLogin"
+        android:layout_marginTop="16dp"
+        android:text="Forgot Password?"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/holo_blue_dark"
         android:layout_centerVertical="true" />
 
     <TextView
         android:id="@+id/tVSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bLogin"
+        android:layout_below="@id/tVForgot"
         android:layout_marginTop="16dp"
-        android:text="Don't have an account yet? Sign up"
+        android:text="Sign Up"
         android:layout_centerHorizontal="true"
         android:textColor="@android:color/holo_blue_dark"
         android:layout_centerVertical="true" />
 
+    <ImageView
+        android:id="@+id/logologin"
+        android:layout_width="130dp"
+        android:layout_height="147dp"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/a" />
+
+    <ImageView
+        android:id="@+id/bottombanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:baselineAlignBottom="false"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background"
+        app:srcCompat="@drawable/c" />
 </RelativeLayout>
