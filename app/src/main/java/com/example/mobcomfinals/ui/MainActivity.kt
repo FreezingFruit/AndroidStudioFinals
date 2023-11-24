@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleState(state : AuthenticationStates) {
         when(state) {
             is AuthenticationStates.Default -> {
-
+                binding.tvWelcomeUser.text = "Hello, ${state.user?.username}!"
             }
             AuthenticationStates.Error -> TODO()
             AuthenticationStates.LogOut -> {
