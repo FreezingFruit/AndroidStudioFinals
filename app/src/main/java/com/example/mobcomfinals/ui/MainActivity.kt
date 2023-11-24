@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobcomfinals.R
 import com.example.mobcomfinals.adapter.PropertyAdapter
 import com.example.mobcomfinals.databinding.ActivityDashboardBinding
-import com.example.mobcomfinals.databinding.ActivityMainBinding
 import com.example.mobcomfinals.viewmodel.PropertyViewModel
 
 class MainActivity : AppCompatActivity() {
