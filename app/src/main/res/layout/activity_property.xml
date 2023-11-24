@@ -9,10 +9,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginRight="6dp"
         android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:paddingRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,38 +24,6 @@
             android:text=". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
             android:textSize="14sp"
             app:autoSizeTextType="none" />
-
-        <TextView
-            android:id="@+id/reTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Real Estate Name"
-            android:textAlignment="center"
-            android:textSize="24sp" />
-
-        <ImageView
-            android:id="@+id/reImage"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:contentDescription="Real Estate Image"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background"
-            app:srcCompat="@drawable/a" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text=". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
-            android:textSize="14sp"
-            app:autoSizeTextType="none" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-        </LinearLayout>
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar2"
@@ -72,48 +40,23 @@
                 android:orientation="vertical"
                 android:translationX="-10dp">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/reSeller"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Real Estate SELLER"
+                    android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/rePrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Real Estate PRICE"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/reSeller"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:gravity="center"
-                            android:text="Real Estate SELLER"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/reSellerNum"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Real Estate SELLER NUMBER"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/reTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Real Estate Name"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/reLocation"
@@ -122,19 +65,60 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:text="Real Estate Location"
-                    android:textAlignment="viewStart" />
+                    android:textAlignment="center" />
 
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
-
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:text=". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
             android:textSize="14sp"
             app:autoSizeTextType="none" />
+
+        <ImageView
+            android:id="@+id/reImage"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:contentDescription="Real Estate Image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            app:srcCompat="@drawable/a" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text=". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+            android:textSize="14sp"
+            app:autoSizeTextType="none" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/rePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Real Estate PRICE" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/reSellerNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Real Estate SELLER NUMBER" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/reDesc"
@@ -142,26 +126,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Real Estate Description"
-            android:textAlignment="center" />
+            android:textAlignment="viewStart" />
+
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/textView17"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:text=". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
             android:textSize="14sp"
             app:autoSizeTextType="none" />
-
-        <Button
-            android:id="@+id/btn_editProperty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="6dp"
-            android:backgroundTint="#9A9388"
-            android:text="Edit Property" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
