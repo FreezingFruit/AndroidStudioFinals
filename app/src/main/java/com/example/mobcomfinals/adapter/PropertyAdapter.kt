@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mobcomfinals.databinding.ActivityDetailsBinding
+import com.example.mobcomfinals.databinding.ActivityPropertyBinding
 import com.example.mobcomfinals.model.PropertyModel
 import com.example.mobcomfinals.ui.PropertyActivity
 import com.example.mobcomfinals.viewmodel.PropertyViewModel
@@ -20,7 +21,7 @@ class PropertyAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ActivityDetailsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ActivityPropertyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(context, binding, viewModel)
     }
 
@@ -51,7 +52,7 @@ class PropertyAdapter(
     class ViewHolder(
 
         private val context: Context,
-        private val binding: ActivityDetailsBinding,
+        private val binding: ActivityPropertyBinding,
         private var viewModel: PropertyViewModel
 
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -70,7 +71,7 @@ class PropertyAdapter(
                 .centerCrop()
                 .into(binding.reImage)
 
-            binding.propertyDetails.setOnClickListener {
+            binding.rvPropertyDesignList.setOnClickListener {
                 val intent = Intent(context, PropertyActivity::class.java)
                 intent.putExtra("position", position)
                 intent.putExtra("property", property)
