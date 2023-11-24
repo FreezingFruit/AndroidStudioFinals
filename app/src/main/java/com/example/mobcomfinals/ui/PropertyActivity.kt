@@ -25,6 +25,7 @@ class PropertyActivity : AppCompatActivity() {
         binding.reTitle.text = property?.propertyName
         binding.reDesc.text = property?.propertyInformation
         binding.reSeller.text = property?.propertySeller
+        binding.reSellerNum.text = property?.propertySellerNumber
         binding.rePrice.text = property?.propertyPrice
         binding.reLocation.text = property?.propertyLocation
 
