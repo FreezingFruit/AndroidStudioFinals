@@ -18,14 +18,28 @@ class AddPropertyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddPropertyBinding
     private lateinit var viewModel: PropertyViewModel
+    private lateinit var authViewModel: AuthenticationViewModel
     private var imageUri : Uri? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddPropertyBinding.inflate(layoutInflater)
+        authViewModel = AuthenticationViewModel()
+        val currentUserEmail = authViewModel.getUserEmail()
+        val currentUserNum = authViewModel.getUserNum()
 
         setContentView(binding.root)
 
+
+        authViewModel.getStates().observe(this@AddPropertyActivity) {
+            handleState(it)
+        }
+        authViewModel.getUserProfile()
+
         viewModel = ViewModelProvider(this)[PropertyViewModel::class.java]
+
+        binding.inputPropertyEmailSeller.setText(currentUserEmail)
+        binding.inputPropertyNumberSeller.setText(currentUserNum)
+
 
         binding.btnAddImage.setOnClickListener{
             resultLauncher.launch("image/*")
@@ -103,5 +117,25 @@ class AddPropertyActivity : AppCompatActivity() {
         }
 
         return true
+    }
+
+
+    private fun handleState(state : AuthenticationStates) {
+        when(state) {
+            is AuthenticationStates.Default -> {
+
+            }
+            AuthenticationStates.Error -> TODO()
+            AuthenticationStates.LogOut -> {
+                LoginActivity.launch(this@AddPropertyActivity)
+                finish()
+            }
+            AuthenticationStates.UserDeleted -> {
+                LoginActivity.launch(this@AddPropertyActivity)
+                finish()
+            }
+            AuthenticationStates.VerificationEmailSent -> TODO()
+            else -> {}
+        }
     }
 }

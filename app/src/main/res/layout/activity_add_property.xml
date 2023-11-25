@@ -79,6 +79,9 @@
             android:id="@+id/input_propertyEmailSeller"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:contextClickable="false"
+            android:editable="false"
             android:hint="Property Email Seller" />
 
 
@@ -94,6 +97,7 @@
             android:id="@+id/input_propertyNumberSeller"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:hint="Property Seller Number" />
 
     </com.google.android.material.textfield.TextInputLayout>

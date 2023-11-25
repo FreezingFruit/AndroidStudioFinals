@@ -10,10 +10,14 @@ import com.example.mobcomfinals.R
 import com.example.mobcomfinals.databinding.ActivityDetailsBinding
 import com.example.mobcomfinals.model.PropertyModel
 import com.example.mobcomfinals.viewmodel.PropertyViewModel
+import android.R.*
+import android.view.View
+import android.widget.Toast
 
 class PropertyActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsBinding
     private lateinit var viewModel: PropertyViewModel
+    private lateinit var authViewModel : AuthenticationViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val property = intent.getParcelableExtra<PropertyModel>("property")
@@ -21,6 +25,18 @@ class PropertyActivity : AppCompatActivity() {
 
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this)[PropertyViewModel::class.java]
+
+        //-------------------------------
+        authViewModel = AuthenticationViewModel()
+        authViewModel.getStates().observe(this@PropertyActivity) {
+            handleState(it)
+        }
+        authViewModel.getUserProfile()
+        //-------------------------------
+
+        val enteredSeller = property?.propertySeller
+        val currentUserEmail = authViewModel.getUserEmail()
+
 
         binding.reTitle.text = property?.propertyName
         binding.reDesc.text = property?.propertyInformation
@@ -50,12 +66,38 @@ class PropertyActivity : AppCompatActivity() {
             true
         }
 
+
+        if(enteredSeller == currentUserEmail){
+            binding.btnEditProperty.visibility = View.VISIBLE
+        }
         binding.btnEditProperty.setOnClickListener {
             val intent = Intent(this, EditPropertyActivity::class.java)
             intent.putExtra("property", property)
             intent.putExtra("position", position)
             startActivity(intent)
         }
-
+        //PUT THE INVIS EDIT IF NEEDED
+        //COMPARE WRITTEN EMAIL IF IS == SHOW IT IF != DONT SHOW IT
     }
+
+
+    private fun handleState(state : AuthenticationStates) {
+        when(state) {
+            is AuthenticationStates.Default -> {
+
+            }
+            AuthenticationStates.Error -> TODO()
+            AuthenticationStates.LogOut -> {
+                LoginActivity.launch(this@PropertyActivity)
+                finish()
+            }
+            AuthenticationStates.UserDeleted -> {
+                LoginActivity.launch(this@PropertyActivity)
+                finish()
+            }
+            AuthenticationStates.VerificationEmailSent -> TODO()
+            else -> {}
+        }
+    }
+
 }

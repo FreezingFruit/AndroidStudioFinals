@@ -177,6 +177,14 @@ class AuthenticationViewModel:ViewModel() {
         return auth.currentUser?.uid
     }
 
+    fun getUserEmail(): String?{
+        return auth.currentUser?.email
+    }
+
+    fun getUserNum(): String?{
+        return auth.currentUser?.phoneNumber
+    }
+
 
 
 

@@ -98,7 +98,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Real Estate SELLER NUMBER" />
+                android:text="Real Estate SELLER NUMBER"
+                android:textColor="#1A9FE6"
+                android:textStyle="bold|italic" />
         </LinearLayout>
 
         <LinearLayout
@@ -126,7 +128,9 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="Real Estate SELLER"
-                android:textSize="12sp" />
+                android:textColor="#2FA6E7"
+                android:textSize="12sp"
+                android:textStyle="bold|italic" />
         </LinearLayout>
 
         <TextView
@@ -147,7 +151,8 @@
             android:layout_marginBottom="6dp"
             android:backgroundTint="#C1B9A7"
             android:text="Edit Property"
-            android:textColor="#49454F" />
+            android:textColor="#49454F"
+            android:visibility="invisible" />
 
     </LinearLayout>
 

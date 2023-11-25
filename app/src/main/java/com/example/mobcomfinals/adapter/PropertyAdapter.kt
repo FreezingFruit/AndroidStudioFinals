@@ -10,13 +10,15 @@ import com.bumptech.glide.Glide
 import com.example.mobcomfinals.databinding.ActivityDetailsBinding
 import com.example.mobcomfinals.databinding.ActivityPropertyBinding
 import com.example.mobcomfinals.model.PropertyModel
+import com.example.mobcomfinals.ui.AuthenticationViewModel
 import com.example.mobcomfinals.ui.PropertyActivity
 import com.example.mobcomfinals.viewmodel.PropertyViewModel
 
 class PropertyAdapter(
     private val context: Context,
     private var propertyList: MutableList<PropertyModel> = mutableListOf(),
-    private var viewModel : PropertyViewModel
+    private var viewModel : PropertyViewModel,
+
     ) : RecyclerView.Adapter<PropertyAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
