@@ -79,7 +79,9 @@
             android:layout_height="wrap_content"
             android:clickable="false"
             android:editable="false"
-            android:hint="Property Email Seller" />
+            android:hint="Property Email Seller"
+            android:inputType="number"
+            android:maxLength="11" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -94,7 +96,8 @@
             android:id="@+id/input_propertyNumberSeller"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Property Seller Number" />
+            android:hint="Property Seller Number"
+            android:inputType="phone" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

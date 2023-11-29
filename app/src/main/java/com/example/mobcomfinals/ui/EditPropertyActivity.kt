@@ -95,6 +95,8 @@ class EditPropertyActivity : AppCompatActivity() {
                 }
             }
         }
+
+
     }
 
     private val resultLauncher = registerForActivityResult(ActivityResultContracts.GetContent()){

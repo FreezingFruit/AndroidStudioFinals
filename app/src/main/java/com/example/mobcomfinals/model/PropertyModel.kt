@@ -8,9 +8,11 @@ import kotlinx.parcelize.Parcelize
 data class PropertyModel(
     @get:Exclude
     var id: String? = null,
-
+    var propertyCategory: String? = null,
     var propertyPicture: String? = null,
     var propertyName: String? = null,
+    var propertyBedrooms: String? = null,
+    var propertyBathrooms: String? = null,
     var propertyInformation: String? = null,
     var propertySeller: String? = null,
     var propertySellerNumber: String? = null,

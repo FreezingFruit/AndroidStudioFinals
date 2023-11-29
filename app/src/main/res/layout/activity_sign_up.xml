@@ -109,7 +109,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Contact Number"
-                android:inputType="number" />
+                android:inputType="phone"
+                android:maxLength="11" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -120,6 +121,33 @@
                 app:autoSizeTextType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_add_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity=""
+                android:layout_margin="8dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/white"
+                android:contentDescription="Add an Image"
+                android:src="@android:drawable/ic_input_add" />
+
+            <ImageView
+                android:id="@+id/iv_selectedImage"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/default_profile" />
+
+
+        </LinearLayout>
 
 
     </LinearLayout>

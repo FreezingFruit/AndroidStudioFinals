@@ -52,14 +52,14 @@ class PropertyActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.reSeller.setOnLongClickListener {
+        binding.reSeller.setOnClickListener {
             val email = binding.reSeller.text.toString()
             val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$email"))
             startActivity(emailIntent)
             true
         }
 
-        binding.reSellerNum.setOnLongClickListener {
+        binding.reSellerNum.setOnClickListener {
             val phone = binding.reSellerNum.text.toString()
             val phoneIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))
             startActivity(phoneIntent)
@@ -69,12 +69,21 @@ class PropertyActivity : AppCompatActivity() {
 
         if(enteredSeller == currentUserEmail){
             binding.btnEditProperty.visibility = View.VISIBLE
+            binding.btnDeleteProperty.visibility = View.VISIBLE
         }
         binding.btnEditProperty.setOnClickListener {
             val intent = Intent(this, EditPropertyActivity::class.java)
             intent.putExtra("property", property)
             intent.putExtra("position", position)
             startActivity(intent)
+        }
+
+        binding.btnDeleteProperty.setOnClickListener {
+            if (property != null){
+                val intent = Intent(this, MainActivity::class.java)
+                deleteItem(property)
+                startActivity(intent)
+            }
         }
         //PUT THE INVIS EDIT IF NEEDED
         //COMPARE WRITTEN EMAIL IF IS == SHOW IT IF != DONT SHOW IT
@@ -98,6 +107,10 @@ class PropertyActivity : AppCompatActivity() {
             AuthenticationStates.VerificationEmailSent -> TODO()
             else -> {}
         }
+    }
+
+    fun deleteItem(property: PropertyModel) {
+        viewModel.deleteProperty(property)
     }
 
 }

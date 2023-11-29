@@ -9,7 +9,7 @@ data class ProfileModel(
     @get:Exclude
     var id : String? = null,
 
-    //add picture here idk how @.@
+    var profilePicture: String? = null,
     var email : String? = null,
     var contactNumber : String? = null,
     var username : String? = null

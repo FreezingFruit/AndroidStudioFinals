@@ -17,14 +17,14 @@ import com.example.mobcomfinals.viewmodel.PropertyViewModel
 class PropertyAdapter(
     private val context: Context,
     private var propertyList: MutableList<PropertyModel> = mutableListOf(),
-    private var viewModel : PropertyViewModel,
+
 
     ) : RecyclerView.Adapter<PropertyAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ActivityPropertyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(context, binding, viewModel)
+        return ViewHolder(context, binding)
     }
 
     override fun getItemCount(): Int {
@@ -54,16 +54,13 @@ class PropertyAdapter(
     class ViewHolder(
 
         private val context: Context,
-        private val binding: ActivityPropertyBinding,
-        private var viewModel: PropertyViewModel
+        private val binding: ActivityPropertyBinding
+
 
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(property: PropertyModel, position: Int) {
             binding.reTitle.text = property.propertyName
-            binding.reDesc.text = property.propertyInformation
-            binding.reSeller.text = property.propertySeller
-            binding.reSellerNum.text = property.propertySellerNumber
             binding.rePrice.text = property.propertyPrice
             binding.reLocation.text = property.propertyLocation
 

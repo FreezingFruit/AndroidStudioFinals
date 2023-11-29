@@ -1,15 +1,21 @@
 package com.example.mobcomfinals.ui
-
+import android.R
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.health.connect.datatypes.units.Length
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
-import com.example.mobcomfinals.R
+
 import com.example.mobcomfinals.databinding.ActivityAddPropertyBinding
+import com.example.mobcomfinals.model.CategoriesModel
 import com.example.mobcomfinals.viewmodel.PropertyViewModel
 import java.io.ByteArrayOutputStream
 import java.util.regex.Pattern
@@ -26,6 +32,7 @@ class AddPropertyActivity : AppCompatActivity() {
         authViewModel = AuthenticationViewModel()
         val currentUserEmail = authViewModel.getUserEmail()
         val currentUserNum = authViewModel.getUserNum()
+        var selectedCategory = ""
 
         setContentView(binding.root)
 
@@ -37,6 +44,19 @@ class AddPropertyActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[PropertyViewModel::class.java]
 
+        //---------------------------------------------------------------
+        viewModel.getCategories{ categoriesModels ->
+            val items = mutableListOf("Select...")
+            items.addAll(categoriesModels.map { it?.categoryName?:"" })
+
+            val adapter = ArrayAdapter(this, R.layout.simple_spinner_item, items)
+            binding.propertyCategory.adapter = adapter
+        }
+
+
+
+        //-------------------------------------------------------------------
+
         binding.inputPropertyEmailSeller.setText(currentUserEmail)
         binding.inputPropertyNumberSeller.setText(currentUserNum)
 
@@ -45,12 +65,38 @@ class AddPropertyActivity : AppCompatActivity() {
             resultLauncher.launch("image/*")
         }
 
+
+        //---------------------------------------------
+        binding.propertyCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedCategory = binding.propertyCategory.selectedItem.toString()
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Handle the case where nothing is selected if needed
+            }
+        }
+        //----------------------------------------------------
+
+
+
         binding.btnAddProperty.setOnClickListener{
             val bitmap = (binding.ivSelectedImage.drawable as BitmapDrawable).bitmap
             val baos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
 
             var status = true
+            if(selectedCategory.isEmpty() || selectedCategory == "Select..."){
+                status = false
+                Toast.makeText(this, "Bonakid ka ba? Kaya ka iniwan eh", Toast.LENGTH_SHORT).show()
+            }
+
             if(binding.inputPropertyName.text.isNullOrBlank()){
                 status = false
                 binding.inputPropertyName.error = "Empty field"
@@ -74,16 +120,22 @@ class AddPropertyActivity : AppCompatActivity() {
 
             if (status){
                 if (restrictions()){
-                    viewModel.saveProfile(
+                    viewModel.saveProperty(
                         baos.toByteArray(),
+                        selectedCategory,
                         binding.inputPropertyName.text.toString(),
+                        binding.inputPropertyBedroom.text.toString(),
+                        binding.inputPropertyBathroom.text.toString(),
                         binding.inputPropertyDescription.text.toString(),
                         binding.inputPropertyEmailSeller.text.toString(),
                         binding.inputPropertyNumberSeller.text.toString(),
                         binding.inputPropertyPrice.text.toString(),
-                        binding.inputPropertyLocation.text.toString()
+                        binding.inputPropertyLocation.text.toString(),
+                        authViewModel.getUserUid().toString()
                     )
-                    startActivity(Intent(this, MainActivity::class.java))
+
+
+                    startActivity(Intent(this, HomePageActivity::class.java))
                 }
             }
 

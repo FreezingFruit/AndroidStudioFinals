@@ -65,12 +65,12 @@ class LoginActivity : AppCompatActivity() {
         when(states) {
             is AuthenticationStates.IsSignedIn -> {
                 if(states.isSignedIn) {
-                    MainActivity.launch(this@LoginActivity)
+                    HomePageActivity.launch(this@LoginActivity)
                     finish()
                 }
             }
             AuthenticationStates.SignedIn -> {
-                MainActivity.launch(this@LoginActivity)
+                HomePageActivity.launch(this@LoginActivity)
                 finish()
             }
             AuthenticationStates.Error -> {}

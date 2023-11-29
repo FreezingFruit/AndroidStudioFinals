@@ -6,12 +6,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mobcomfinals.adapter.PropertyAdapter
+import com.example.mobcomfinals.model.CategoriesModel
+import com.example.mobcomfinals.model.OwnedPropertyModel
 import com.example.mobcomfinals.model.PropertyModel
 import com.example.mobcomfinals.states.StorageStates
+import com.example.mobcomfinals.ui.AuthenticationViewModel
+import com.google.android.gms.tasks.Task
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import java.lang.Exception
 import java.text.SimpleDateFormat
@@ -23,12 +28,16 @@ class PropertyViewModel : ViewModel() {
     private val refProperty = database.getReference(NODE_PROPERTY)
     private var fb_storage = FirebaseStorage.getInstance().getReference(NODE_PROPERTY_IMAGES)
     private var state = MutableLiveData<StorageStates>()
+    private val refUser = database.getReference(NODE_USER)
+    private val authUser = AuthenticationViewModel()
 
     private val _result = MutableLiveData<Exception?>()
     val result: LiveData<Exception?> get() = _result
 
     private val _property = MutableLiveData<PropertyModel>()
+    private val _category = MutableLiveData<CategoriesModel>()
     val property: LiveData<PropertyModel> get() = _property
+    val category: LiveData<CategoriesModel> get() = _category
 
     fun addProperty(property: PropertyModel) {
         property.id = refProperty.push().key
@@ -46,7 +55,15 @@ class PropertyViewModel : ViewModel() {
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
             val property = snapshot.getValue(PropertyModel::class.java)
             property?.id = snapshot.key
-            _property.value = property!!
+            checkIfCurrentUserProperty(property?.id!!).addOnSuccessListener { exists ->
+                if(exists){
+
+                    Log.d("test123","it exists")
+                } else{
+                    Log.d("test123","nono zone")
+                    _property.value = property!!
+                }
+            }
         }
 
         override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -73,8 +90,8 @@ class PropertyViewModel : ViewModel() {
 
     }
 
-    fun getRealtimeUpdate(){
-        refProperty.addChildEventListener(childEventListener)
+    fun getRealtimeUpdate(category: String){
+        refProperty.child(category).addChildEventListener(childEventListener)
     }
 
     fun updateProperty(img:ByteArray, property: PropertyModel){
@@ -83,19 +100,12 @@ class PropertyViewModel : ViewModel() {
         propertyRef.putBytes(img).addOnSuccessListener {
             propertyRef.downloadUrl.addOnSuccessListener { uri ->
                 property.id?.let {
-                    val updatedProperty = PropertyModel(it, property.propertyPicture, property.propertyName, property.propertyInformation, property.propertySeller, property.propertySellerNumber, property.propertyPrice, property.propertyLocation, false)
+                    val updatedProperty = PropertyModel(it, property.propertyCategory, property.propertyPicture, property.propertyName, property.propertyBedrooms,property.propertyBathrooms, property.propertyInformation, property.propertySeller, property.propertySellerNumber, property.propertyPrice, property.propertyLocation, false)
                     refProperty.child(it).setValue(updatedProperty)
 
-
-
-
                 }
-
-
             }
         }
-
-
     }
 
     fun deleteProperty(property: PropertyModel){
@@ -138,33 +148,77 @@ class PropertyViewModel : ViewModel() {
             }
     }
 
-    fun saveProfile(img : ByteArray, propertyName : String, propertyInformation : String, propertySeller:String, propertySellerNumber:String, propertyPrice:String, propertyLocation:String) {
+    fun saveProperty(img : ByteArray, propertyCategory:String, propertyName : String,propertyBedrooms:String, propertyBathrooms:String, propertyInformation : String, propertySeller:String, propertySellerNumber:String, propertyPrice:String, propertyLocation:String, userUid: String) {
         val newKey = refProperty.push().key
 
         val propertyRef = fb_storage.child("$newKey.jpg")
-        Log.d("test123", "${fb_storage.child("$newKey.jpg")}")
+
 
         propertyRef.putBytes(img).addOnSuccessListener {
             propertyRef.downloadUrl.addOnSuccessListener {
-                val property = PropertyModel(null, it.toString(), propertyName, propertyInformation, propertySeller, propertySellerNumber, propertyPrice, propertyLocation, false)
-                refProperty.child(newKey!!).setValue(property)
+                val property = PropertyModel(null, propertyCategory , it.toString(), propertyName,propertyBedrooms,propertyBathrooms, propertyInformation, propertySeller, propertySellerNumber, propertyPrice, propertyLocation, false)
+                refProperty.child(propertyCategory).child(newKey!!).setValue(property)
 
-                Log.d("test123", "${refProperty.child("$newKey")}")
+                val ownedPropertyModel = OwnedPropertyModel(newKey, propertyCategory)
+
+                refUser.child(userUid).child(NODE_OWNEDPROPERTY).child(newKey).setValue(ownedPropertyModel)
+
+
+
             }
         }
 
-//        userRef.putBytes(img).addOnSuccessListener {
-//            userRef.downloadUrl.addOnSuccessListener {
-//                val property = PropertyModel(null, it.toString(), propertyName, propertyInformation, propertySeller, propertySellerNumber, propertyPrice, propertyLocation, false)
-//                refProperty.child(modifiedKey).setValue(property)
+    }
+
+    fun getCategories(callback:(List<CategoriesModel>) -> Unit){
+        val refCategory = refProperty.child(NODE_CATEGORIES)
+
+        val valueEventListener = object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val categoriesList:MutableList<CategoriesModel> = mutableListOf()
+                for (categoriesSnapShot in dataSnapshot.children){
+                    val category = categoriesSnapShot.getValue(CategoriesModel::class.java)
+                    categoriesList.add(category!!)
+                }
+                callback(categoriesList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(emptyList())
+            }
+
+        }
+
+        refCategory.addValueEventListener(valueEventListener)
+
+    }
+
+    fun checkIfCurrentUserProperty(propertyId:String):Task<Boolean>{
+        val refUserProperties = refUser.child(authUser?.getUserUid()!!).child(NODE_OWNEDPROPERTY)
+            .child(propertyId).child("propertyKey")
+
+        return refUserProperties.get().continueWith { task ->
+            if (task.isSuccessful) {
+                val dataSnapshot = task.result
+                val ownedProperty = dataSnapshot.getValue(OwnedPropertyModel::class.java)
+                if (ownedProperty?.propertyKey == propertyId) {
+                    return@continueWith true
+
+                }
+
+
+
+//                for (ownedPropertySnapShot in dataSnapshot.children) {
 //
-//            }.addOnFailureListener {
-//                state.value = StorageStates.StorageFailed(it.message)
-//            }
-//
-//        }.addOnFailureListener {
-//            state.value = StorageStates.StorageFailed(it.message)
-//        }
+
+//                }
+                false
+            } else {
+                Log.e("test12", "Error getting timeslot", task.exception)
+                false
+            }
+        }
     }
 
     override fun onCleared() {

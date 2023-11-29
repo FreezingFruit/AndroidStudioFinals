@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobcomfinals.R
 import com.example.mobcomfinals.adapter.PropertyAdapter
 import com.example.mobcomfinals.databinding.ActivityDashboardBinding
+import com.example.mobcomfinals.databinding.ActivityDuplexListBinding
 import com.example.mobcomfinals.viewmodel.PropertyViewModel
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityDashboardBinding
+class CabinListActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityDuplexListBinding
     private lateinit var propertyAdapter: PropertyAdapter
     private lateinit var propertyViewModel: PropertyViewModel
     private lateinit var authenticationViewModel: AuthenticationViewModel
@@ -21,12 +22,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDashboardBinding.inflate(layoutInflater)
+        binding = ActivityDuplexListBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
         authenticationViewModel = AuthenticationViewModel()
-        authenticationViewModel.getStates().observe(this@MainActivity) {
+        authenticationViewModel.getStates().observe(this@CabinListActivity) {
             handleState(it)
         }
         authenticationViewModel.getUserProfile()
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         propertyViewModel.property.observe(this, Observer {
             propertyAdapter.addProperty(it)
         })
-        propertyViewModel.getRealtimeUpdate("Apartment")
+        propertyViewModel.getRealtimeUpdate("Cabin")
         //----------------------------------------------------------------
 
 
@@ -63,11 +64,11 @@ class MainActivity : AppCompatActivity() {
             }
             AuthenticationStates.Error -> TODO()
             AuthenticationStates.LogOut -> {
-                LoginActivity.launch(this@MainActivity)
+                LoginActivity.launch(this@CabinListActivity)
                 finish()
             }
             AuthenticationStates.UserDeleted -> {
-                LoginActivity.launch(this@MainActivity)
+                LoginActivity.launch(this@CabinListActivity)
                 finish()
             }
             AuthenticationStates.VerificationEmailSent -> TODO()
@@ -76,6 +77,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun launch(activity : Activity) = activity.startActivity(Intent(activity, MainActivity::class.java))
+        fun launch(activity : Activity) = activity.startActivity(Intent(activity, CabinListActivity::class.java))
     }
 }

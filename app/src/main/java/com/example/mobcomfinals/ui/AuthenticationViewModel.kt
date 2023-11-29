@@ -4,8 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.mobcomfinals.model.OwnedPropertyModel
 import com.example.mobcomfinals.model.ProfileModel
+import com.example.mobcomfinals.model.PropertyModel
 import com.example.mobcomfinals.states.StorageStates
+import com.example.mobcomfinals.viewmodel.NODE_OWNEDPROPERTY
+import com.example.mobcomfinals.viewmodel.NODE_USER
+import com.example.mobcomfinals.viewmodel.NODE_USERINFORMATION
 import com.example.mobcomfinals.viewmodel.NODE_USER_IMAGES
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -14,6 +19,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
@@ -21,11 +27,12 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 
 class AuthenticationViewModel:ViewModel() {
+    private val database = FirebaseDatabase.getInstance()
     private val auth = Firebase.auth
     private val ref = Firebase.database.reference
     private var state = MutableLiveData<StorageStates>()
     private var states = MutableLiveData<AuthenticationStates>()
-    private val userBalance = MutableLiveData<String>()
+    private val refUser = database.getReference(NODE_USER)
     private var fb_storage = FirebaseStorage.getInstance().getReference(NODE_USER_IMAGES)
 
 
@@ -78,7 +85,7 @@ class AuthenticationViewModel:ViewModel() {
             }
 
         }
-        ref.child("app/users/" + auth.currentUser?.uid).addValueEventListener(objectListener)
+        ref.child(NODE_USER).child(auth.currentUser?.uid!!).child(NODE_USERINFORMATION).addValueEventListener(objectListener)
     }
 
     fun updateUserProfile(newName : String) {
@@ -162,12 +169,14 @@ class AuthenticationViewModel:ViewModel() {
     }
 
 
-    fun createUserRecord (email : String, contactNumber : String , username : String){
-        val users = ProfileModel(null,email,contactNumber, username)
+    fun createUserRecord (img : ByteArray,email : String, contactNumber : String , username : String){
+        val userRef = fb_storage.child("${auth.currentUser?.uid}.jpg")
+        userRef.putBytes(img).addOnSuccessListener {
+            userRef.downloadUrl.addOnSuccessListener {
+                val user = ProfileModel(null, it.toString() ,email, contactNumber, username)
+                refUser.child(auth.currentUser?.uid.toString()).child(NODE_USERINFORMATION).setValue(user)
 
-        ref.child("app/users/" + auth.currentUser?.uid).setValue(users).addOnCompleteListener {
-            if(it.isSuccessful) states.value = AuthenticationStates.ProfileUpdated
-            else states.value = AuthenticationStates.Error
+            }
         }
 
     }
