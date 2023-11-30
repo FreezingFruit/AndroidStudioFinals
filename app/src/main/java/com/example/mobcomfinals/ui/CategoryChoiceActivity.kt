@@ -6,21 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.example.mobcomfinals.R
-import com.example.mobcomfinals.databinding.ActivityDashboardBinding
+import com.example.mobcomfinals.databinding.ActivityCategoryChoiceBinding
 import com.example.mobcomfinals.databinding.ActivityHomePageBinding
 
-class HomePageActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityHomePageBinding
+class CategoryChoiceActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityCategoryChoiceBinding
     private lateinit var authenticationViewModel: AuthenticationViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
-        binding = ActivityHomePageBinding.inflate(layoutInflater)
+        binding = ActivityCategoryChoiceBinding.inflate(layoutInflater)
         authenticationViewModel = AuthenticationViewModel()
-        authenticationViewModel.getStates().observe(this@HomePageActivity) {
+        authenticationViewModel.getStates().observe(this@CategoryChoiceActivity) {
             handleState(it)
         }
         authenticationViewModel.getUserProfile()
@@ -28,15 +24,19 @@ class HomePageActivity : AppCompatActivity() {
         setContentView(binding.root)
         with(binding){
             btnProfile.setOnClickListener {
-            ProfileActivity.launch(this@HomePageActivity)
-        }
-            btnEnlistProperty.setOnClickListener {
-                AddPropertyActivity.launch(this@HomePageActivity)
+                com.example.mobcomfinals.ui.ProfileActivity.launch(this@CategoryChoiceActivity)
             }
-            btnLookForRealEstate.setOnClickListener {
-                CategoryChoiceActivity.launch(this@HomePageActivity)
+            btnApartment.setOnClickListener {
+                com.example.mobcomfinals.ui.MainActivity.launch(this@CategoryChoiceActivity)
             }
 
+            btnDuplex.setOnClickListener {
+                com.example.mobcomfinals.ui.DuplexListActivity.launch(this@CategoryChoiceActivity)
+            }
+
+            btnCabin.setOnClickListener {
+                com.example.mobcomfinals.ui.CabinListActivity.launch(this@CategoryChoiceActivity)
+            }
         }
 
     }
@@ -52,11 +52,11 @@ class HomePageActivity : AppCompatActivity() {
             }
             AuthenticationStates.Error -> TODO()
             AuthenticationStates.LogOut -> {
-                LoginActivity.launch(this@HomePageActivity)
+                LoginActivity.launch(this@CategoryChoiceActivity)
                 finish()
             }
             AuthenticationStates.UserDeleted -> {
-                LoginActivity.launch(this@HomePageActivity)
+                LoginActivity.launch(this@CategoryChoiceActivity)
                 finish()
             }
             AuthenticationStates.VerificationEmailSent -> TODO()
@@ -65,6 +65,6 @@ class HomePageActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun launch(activity : Activity) = activity.startActivity(Intent(activity, HomePageActivity::class.java))
+        fun launch(activity : Activity) = activity.startActivity(Intent(activity, CategoryChoiceActivity::class.java))
     }
 }

@@ -33,6 +33,7 @@ class PropertyAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         propertyList[position].let {
+            propertyList.reverse()
             holder.bind(it, position)
         }
     }

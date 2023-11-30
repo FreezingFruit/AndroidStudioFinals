@@ -145,7 +145,9 @@
                     android:id="@+id/input_propertyNumberSeller"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:focusable="false"
                     android:hint="Property Seller Number"
                     android:inputType="phone"
                     android:maxLength="11" />

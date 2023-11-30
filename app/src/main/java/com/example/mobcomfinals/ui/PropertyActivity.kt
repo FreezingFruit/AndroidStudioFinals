@@ -41,6 +41,9 @@ class PropertyActivity : AppCompatActivity() {
         binding.reTitle.text = property?.propertyName
         binding.reDesc.text = property?.propertyInformation
         binding.reSeller.text = property?.propertySeller
+        binding.reCategory.text = property?.propertyCategory
+        binding.reBedroom.text = property?.propertyBedrooms
+        binding.reBathroom.text = property?.propertyBathrooms
         binding.reSellerNum.text = property?.propertySellerNumber
         binding.rePrice.text = property?.propertyPrice
         binding.reLocation.text = property?.propertyLocation
@@ -80,7 +83,7 @@ class PropertyActivity : AppCompatActivity() {
 
         binding.btnDeleteProperty.setOnClickListener {
             if (property != null){
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, HomePageActivity::class.java)
                 deleteItem(property)
                 startActivity(intent)
             }

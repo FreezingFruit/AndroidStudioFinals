@@ -23,6 +23,17 @@ class ProfileActivity : AppCompatActivity() {
         }
         authenticationViewModel.getUserProfile()
 
+        binding.btnCheckProperties.setOnClickListener {
+            startActivity(Intent(this, OwnedPropertyActivity::class.java))
+        }
+        binding.btnBack.setOnClickListener {
+            startActivity(Intent(this, HomePageActivity::class.java))
+        }
+
+        binding.btnLogout.setOnClickListener {
+            authenticationViewModel.logOut()
+        }
+
 
 
 
@@ -35,7 +46,7 @@ class ProfileActivity : AppCompatActivity() {
                 Glide.with(this)
                     .load(state.user?.profilePicture)
                     .centerCrop()
-                    .into(binding.imageView2)
+                    .into(binding.ivUserProfile)
 
                 binding.tvName.text = " ${state.user?.username}!"
                 binding.tvEmail.text = " ${state.user?.email}!"

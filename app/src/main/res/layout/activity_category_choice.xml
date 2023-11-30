@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.HomePageActivity"
+    tools:context=".ui.CategoryChoiceActivity"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -113,57 +113,38 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_margin="30dp"
-                android:weightSum="2"
+                android:weightSum="3"
                 android:layout_gravity="center"
                 android:gravity="center">
 
-                <LinearLayout
+                <Button
+                    android:id="@+id/btnApartment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Click to start\nLooking for Real Estate"
-                        android:gravity="center"
-                        android:textSize="18sp"/>
-
-                    <Button
-                        android:id="@+id/btnLookForRealEstate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Click for fun!"
-                        android:backgroundTint="@color/brown2"
-                        android:padding="25dp"
-                        android:layout_marginBottom="25dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
+                    android:text="Apartment"
+                    android:backgroundTint="@color/brown2"
+                    android:layout_weight="1"
+                    android:padding="25dp"
+                    android:layout_marginBottom="25dp"/>
+                <Button
+                    android:id="@+id/btnDuplex"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:text="Duplex"
+                    android:backgroundTint="@color/brown2"
+                    android:layout_weight="1"
+                    android:padding="25dp"
+                    android:layout_marginBottom="25dp"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Enlist a property?"
-                        android:gravity="center"
-                        android:textSize="18sp"/>
-
-                    <Button
-                        android:id="@+id/btnEnlistProperty"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Click for fun!"
-                        android:backgroundTint="@color/brown2"
-                        android:padding="25dp"/>
-
-                </LinearLayout>
-
+                <Button
+                    android:id="@+id/btnCabin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cabin"
+                    android:backgroundTint="@color/brown2"
+                    android:layout_weight="1"
+                    android:padding="25dp"
+                    />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

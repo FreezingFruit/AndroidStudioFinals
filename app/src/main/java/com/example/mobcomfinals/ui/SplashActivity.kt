@@ -20,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Timer().schedule(2000){
-            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+            startActivity(Intent(this@SplashActivity, WelcomePageActivity::class.java))
             finish()
         }
     }

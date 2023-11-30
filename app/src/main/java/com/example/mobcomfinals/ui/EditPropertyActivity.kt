@@ -47,15 +47,24 @@ class EditPropertyActivity : AppCompatActivity() {
             resultLauncher.launch("image/*")
         }
 
-        binding.btnSave.setOnClickListener{
+        binding.btnEditProperty.setOnClickListener{
             val bitmap = (binding.ivSelectedImage.drawable as BitmapDrawable).bitmap
             val baos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
 
             var status = true
+
             if(binding.inputPropertyName.text.isNullOrBlank()){
                 status = false
                 binding.inputPropertyName.error = "Empty field"
+            }
+            if(binding.inputPropertyBedroom.text.isNullOrBlank()){
+                status = false
+                binding.inputPropertyBedroom.error = "Empty field"
+            }
+            if(binding.inputPropertyBathroom.text.isNullOrBlank()){
+                status = false
+                binding.inputPropertyBathroom.error = "Empty field"
             }
             if(binding.inputPropertyDescription.text.isNullOrBlank()){
                 status = false
@@ -81,7 +90,10 @@ class EditPropertyActivity : AppCompatActivity() {
 
             if (status){
                 if (restrictions()){
+                    property?.propertyCategory
                     property?.propertyName = binding.inputPropertyName.text.toString()
+                    property?.propertyBedrooms = binding.inputPropertyBedroom.text.toString()
+                    property?.propertyBathrooms = binding.inputPropertyBedroom.text.toString()
                     property?.propertyInformation = binding.inputPropertyDescription.text.toString()
                     property?.propertySeller = binding.inputPropertyEmailSeller.text.toString()
                     property?.propertySellerNumber = binding.inputPropertyNumberSeller.text.toString()
@@ -91,7 +103,7 @@ class EditPropertyActivity : AppCompatActivity() {
 
                     viewModel.updateProperty(baos.toByteArray(),property!!)
 
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, HomePageActivity::class.java))
                 }
             }
         }

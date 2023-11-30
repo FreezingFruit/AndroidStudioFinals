@@ -30,23 +30,12 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_welcomeUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-
-                    android:gravity="center"
-                    android:text="Hello, User!"
-                    android:textAlignment="center"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center|right|end"
                     android:orientation="horizontal">
+
 
                     <Button
                         android:id="@+id/btn_addProperty"
@@ -57,14 +46,6 @@
                         android:gravity="center"
                         android:text="+"
                         android:textSize="20sp" />
-
-                    <Button
-                        android:id="@+id/btn_logout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:backgroundTint="#9C958A"
-                        android:text="Log off" />
 
                 </LinearLayout>
 

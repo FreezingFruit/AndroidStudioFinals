@@ -47,9 +47,6 @@ class MainActivity : AppCompatActivity() {
         //----------------------------------------------------------------
 
 
-        binding.btnLogout.setOnClickListener {
-            authenticationViewModel.logOut()
-        }
 
         binding.btnAddProperty.setOnClickListener {
             startActivity(Intent(this, AddPropertyActivity::class.java))
@@ -59,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleState(state : AuthenticationStates) {
         when(state) {
             is AuthenticationStates.Default -> {
-                binding.tvWelcomeUser.text = "Hello, ${state.user?.username}!"
+
             }
             AuthenticationStates.Error -> TODO()
             AuthenticationStates.LogOut -> {

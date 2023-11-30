@@ -31,6 +31,7 @@ class PropertyViewModel : ViewModel() {
     private val refUser = database.getReference(NODE_USER)
     private val authUser = AuthenticationViewModel()
 
+
     private val _result = MutableLiveData<Exception?>()
     val result: LiveData<Exception?> get() = _result
 
@@ -90,8 +91,53 @@ class PropertyViewModel : ViewModel() {
 
     }
 
+    private val ownedPropertyChildEventListener = object : ChildEventListener{
+        override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+            val property = snapshot.getValue(PropertyModel::class.java)
+            property?.id = snapshot.key
+            checkIfCurrentUserProperty(property?.id!!).addOnSuccessListener { exists ->
+                if(exists){
+                    _property.value = property!!
+                    Log.d("test123","it exists")
+                } else{
+                    Log.d("test123","nono zone")
+
+                }
+            }
+        }
+
+        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+            val property = snapshot.getValue(PropertyModel::class.java)
+            property?.id = snapshot.key
+            _property.value = property!!
+        }
+
+        override fun onChildRemoved(snapshot: DataSnapshot) {
+            val property = snapshot.getValue(PropertyModel::class.java)
+            property?.id = snapshot.key
+            _property.value = property!!
+            property?.isDeleted = true
+
+        }
+
+        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            TODO("Not yet implemented")
+        }
+
+    }
+
     fun getRealtimeUpdate(category: String){
         refProperty.child(category).addChildEventListener(childEventListener)
+    }
+
+    fun getRealtimeUpdateOwnedProperty(category: String){
+
+        refProperty.child(category).addChildEventListener(ownedPropertyChildEventListener)
+
     }
 
     fun updateProperty(img:ByteArray, property: PropertyModel){
@@ -101,7 +147,7 @@ class PropertyViewModel : ViewModel() {
             propertyRef.downloadUrl.addOnSuccessListener { uri ->
                 property.id?.let {
                     val updatedProperty = PropertyModel(it, property.propertyCategory, property.propertyPicture, property.propertyName, property.propertyBedrooms,property.propertyBathrooms, property.propertyInformation, property.propertySeller, property.propertySellerNumber, property.propertyPrice, property.propertyLocation, false)
-                    refProperty.child(it).setValue(updatedProperty)
+                    refProperty.child(property.propertyCategory!!).child(it).setValue(updatedProperty)
 
                 }
             }
@@ -109,7 +155,15 @@ class PropertyViewModel : ViewModel() {
     }
 
     fun deleteProperty(property: PropertyModel){
-        refProperty.child(property.id!!).setValue(null).addOnCompleteListener {
+        refProperty.child(property.propertyCategory!!).child(property.id!!).setValue(null).addOnCompleteListener {
+            if(it.isSuccessful){
+                _result.value = null
+            }else{
+                _result.value = it.exception
+            }
+        }
+
+        refUser.child(authUser.getUserUid()!!).child(NODE_OWNEDPROPERTY).child(property.id!!).setValue(null).addOnCompleteListener {
             if(it.isSuccessful){
                 _result.value = null
             }else{
@@ -200,26 +254,76 @@ class PropertyViewModel : ViewModel() {
 
         return refUserProperties.get().continueWith { task ->
             if (task.isSuccessful) {
+
                 val dataSnapshot = task.result
-                val ownedProperty = dataSnapshot.getValue(OwnedPropertyModel::class.java)
-                if (ownedProperty?.propertyKey == propertyId) {
+                Log.d("test123","$dataSnapshot")
+                val ownedProperty = dataSnapshot.getValue()
+                Log.d("test123", "$ownedProperty")
+                if (ownedProperty == propertyId) {
                     return@continueWith true
+                    Log.d("test123","pagnakita mo ako crush ka ng crush mo")
 
                 }
 
-
-
 //                for (ownedPropertySnapShot in dataSnapshot.children) {
 //
-
 //                }
                 false
             } else {
-                Log.e("test12", "Error getting timeslot", task.exception)
+                Log.e("test12", "Error getting property", task.exception)
                 false
             }
         }
     }
+
+    fun checkIfCurrentUserProperty2(propertyId:String):Task<Boolean>{
+        val refUserProperties = refUser.child(authUser?.getUserUid()!!).child(NODE_OWNEDPROPERTY)
+            .child(propertyId).child("propertyKey")
+
+        Log.d("test123", "$refUserProperties")
+
+        return refUserProperties.get().continueWith { task ->
+            if (task.isSuccessful) {
+                val dataSnapshot = task.result
+                val ownedProperty = dataSnapshot.getValue(OwnedPropertyModel::class.java)
+                if (ownedProperty?.propertyKey == propertyId) {
+                    return@continueWith true
+                    Log.d("test123", "$ownedProperty")
+                }
+
+//                for (ownedPropertySnapShot in dataSnapshot.children) {
+//
+//                }
+                false
+            } else {
+                Log.e("test12", "Error getting property", task.exception)
+                false
+            }
+        }
+    }
+
+//    fun getOwnedPropertyCategory():Task<Boolean>{
+//        val refCategory = refUser.child(authUser.getUserUid()!!).child(NODE_OWNEDPROPERTY)
+//        val ownedPropertyList : MutableList<OwnedPropertyModel> = mutableListOf()
+//        val refProperties = refProperty
+//        refCategory.get().continueWith { task ->
+//
+//            if (task.isSuccessful) {
+//                val dataSnapshot = task.result
+//
+//                for (ownedPropertySnapShot in dataSnapshot.children) {
+//                    val ownedProperty = dataSnapshot.getValue(OwnedPropertyModel::class.java)
+//                    ownedPropertyList.add(ownedProperty!!)
+//
+//                    refCategory.child()
+//
+//                }
+//
+//            }
+//            true
+//        }
+//        return refProperty.child()
+//    }
 
     override fun onCleared() {
         super.onCleared()

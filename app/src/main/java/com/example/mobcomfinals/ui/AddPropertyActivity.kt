@@ -1,5 +1,6 @@
 package com.example.mobcomfinals.ui
 import android.R
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -175,7 +176,7 @@ class AddPropertyActivity : AppCompatActivity() {
     private fun handleState(state : AuthenticationStates) {
         when(state) {
             is AuthenticationStates.Default -> {
-
+                binding.inputPropertyNumberSeller.setText(state.user?.contactNumber)
             }
             AuthenticationStates.Error -> TODO()
             AuthenticationStates.LogOut -> {
@@ -189,5 +190,8 @@ class AddPropertyActivity : AppCompatActivity() {
             AuthenticationStates.VerificationEmailSent -> TODO()
             else -> {}
         }
+    }
+    companion object {
+        fun launch(activity : Activity) = activity.startActivity(Intent(activity, AddPropertyActivity::class.java))
     }
 }
