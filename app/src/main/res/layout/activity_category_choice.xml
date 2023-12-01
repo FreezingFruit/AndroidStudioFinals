@@ -10,11 +10,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="10dp"
-        android:backgroundTint="@color/brown"
-        app:cardCornerRadius="0dp"
+        android:backgroundTint="#C1B9A7"
         android:elevation="10dp"
-        >
+        app:cardCornerRadius="0dp"
+        app:cardElevation="10dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -25,52 +24,48 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="5dp"
-                android:background="@color/brown2"
-                >
+                android:background="#9B9489"
+                android:padding="5dp">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    app:cardCornerRadius="250dp"
                     android:layout_marginEnd="10dp"
+                    app:cardCornerRadius="250dp"
                     app:cardElevation="10dp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="250dp"
                         android:layout_gravity="center"
+                        app:cardCornerRadius="250dp"
                         app:cardElevation="0dp">
 
                         <ImageView
                             android:id="@+id/iv_userProfile"
                             android:layout_width="30sp"
                             android:layout_height="30sp"
-                            android:src="@drawable/default_profile"/>
+                            android:src="@drawable/default_profile" />
 
                     </androidx.cardview.widget.CardView>
 
                 </androidx.cardview.widget.CardView>
 
 
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Welcome, "
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/white"
-                    />
+                    android:text="Welcome, "
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/tvWelcomeUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/white"
-                    />
+                    android:text="Name"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -85,10 +80,10 @@
                     android:id="@+id/btnProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="10dp"
                     android:text="Profile"
                     android:textColor="@color/white"
-                    android:padding="10dp"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -96,6 +91,16 @@
 
     </androidx.cardview.widget.CardView>
 
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:text=". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+        android:textSize="14sp"
+        app:autoSizeTextType="none"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="6dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -121,30 +126,30 @@
                     android:id="@+id/btnApartment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Apartment"
-                    android:backgroundTint="@color/brown2"
+                    android:layout_marginBottom="25dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#9B9489"
                     android:padding="25dp"
-                    android:layout_marginBottom="25dp"/>
+                    android:text="Apartment" />
+
                 <Button
                     android:id="@+id/btnDuplex"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Duplex"
-                    android:backgroundTint="@color/brown2"
+                    android:layout_marginBottom="25dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#9B9489"
                     android:padding="25dp"
-                    android:layout_marginBottom="25dp"/>
+                    android:text="Duplex" />
 
                 <Button
                     android:id="@+id/btnCabin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cabin"
-                    android:backgroundTint="@color/brown2"
                     android:layout_weight="1"
+                    android:backgroundTint="#9B9489"
                     android:padding="25dp"
-                    />
+                    android:text="Cabin" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

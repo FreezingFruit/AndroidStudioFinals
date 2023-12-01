@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.WelcomePageActivity"
+    android:background="#C1B9A7"
     android:orientation="vertical"
-    android:background="@color/brown2">
+    tools:context=".ui.WelcomePageActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,11 +42,11 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="698dp"
+                        android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:padding="15dp"
 
-                        android:layout_gravity="center">
+                        android:padding="15dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="25dp"
-                            android:background="@color/brown2"
+                            android:background="#C1B9A7"
                             android:gravity="center"
                             android:text="@string/app_name"
                             android:textColor="@color/white"
@@ -70,7 +70,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:backgroundTint="@color/brown2"
+                            android:layout_marginTop="280dp"
+                            android:backgroundTint="#9B9489"
                             android:text="Get Started!" />
 
                     </LinearLayout>

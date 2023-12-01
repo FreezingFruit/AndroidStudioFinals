@@ -4,36 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.HomePageActivity"
+    android:background="#C1B9A7"
     android:orientation="vertical"
-    android:background="@color/brown">
+    tools:context=".ui.HomePageActivity">
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="250dp"
-        android:layout_margin="10dp"
-        android:backgroundTint="@color/brown2">
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#9B9489"
+        app:cardCornerRadius="250dp">
 
         <ImageView
             android:layout_width="60sp"
             android:layout_height="60sp"
             android:padding="10dp"
-            android:src="@drawable/btnback"/>
+            android:src="@drawable/btnback" />
     </androidx.cardview.widget.CardView>
-
-
 
     <ImageView
         android:id="@+id/btnLogout"
         android:layout_width="60sp"
         android:layout_height="60sp"
         android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
         android:layout_marginEnd="0dp"
         android:padding="10dp"
-        android:src="@drawable/btnlogout"
-        android:layout_margin="10dp"/>
+        android:src="@drawable/btnlogout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -42,16 +44,18 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="500dp"
             android:layout_gravity="center"
-            android:layout_marginTop="200sp"
-            android:layout_marginBottom="-180sp"
-            android:backgroundTint="@color/brown2"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#9B9489"
             app:cardCornerRadius="80dp"
             app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         </androidx.cardview.widget.CardView>
 
@@ -59,13 +63,15 @@
             android:id="@+id/cardView5"
             android:layout_width="210sp"
             android:layout_height="210sp"
-            android:layout_marginBottom="-110sp"
+            android:layout_marginTop="250dp"
+            android:layout_marginBottom="-50sp"
             android:backgroundTint="@color/brown"
             app:cardCornerRadius="250dp"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toTopOf="@+id/cardView4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -85,11 +91,21 @@
 
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="125sp"
             android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/cardView4">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text=". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+                android:textSize="14sp"
+                app:autoSizeTextType="none" />
 
             <TextView
                 android:id="@+id/tvName"
@@ -101,12 +117,13 @@
                 android:textColor="@color/white"
                 android:textSize="26sp" />
 
-            <ImageButton
+            <TextView
+                android:id="@+id/textView10"
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/white" />
+                android:layout_height="20dp"
+                android:text=". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+                android:textSize="14sp"
+                app:autoSizeTextType="none" />
 
             <TextView
                 android:id="@+id/tvEmail"
@@ -132,14 +149,16 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnCheckProperties"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/squircle"
-            android:backgroundTint="@color/brown"
+            android:layout_marginStart="9dp"
+            android:layout_marginEnd="9dp"
+            android:backgroundTint="#C1B9A7"
             android:text="View Properties"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="10dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
