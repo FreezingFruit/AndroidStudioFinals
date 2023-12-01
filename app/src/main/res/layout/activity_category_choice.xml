@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.CategoryChoiceActivity"
-    android:orientation="vertical">
+    android:layout_margin="8dp"
+    android:orientation="vertical"
+    tools:context=".ui.CategoryChoiceActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -116,11 +117,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="30dp"
-                android:weightSum="3"
                 android:layout_gravity="center"
-                android:gravity="center">
+                android:layout_margin="30dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="3">
 
                 <Button
                     android:id="@+id/btnApartment"

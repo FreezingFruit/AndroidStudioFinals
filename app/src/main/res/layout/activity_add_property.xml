@@ -10,28 +10,33 @@
     android:paddingRight="5sp"
     tools:context=".ui.AddPropertyActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar4"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center|start"
+        android:layout_margin="8dp"
         android:background="#C1B9A7"
-        android:minHeight="?attr/actionBarSize"
-        android:scrollbarAlwaysDrawHorizontalTrack="false"
-        android:scrollbars="none"
-        android:theme="?attr/actionBarTheme"
-        app:contentInsetStart="0dp"
-        app:titleMargin="0dp">
+        app:cardBackgroundColor="#C0B8A6"
+        app:cardCornerRadius="10dp">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:text="Add your Property for Selling"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    </androidx.appcompat.widget.Toolbar>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:text="Add your Property for Selling"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <ScrollView
         android:layout_width="match_parent"
