@@ -36,6 +36,17 @@
                     android:gravity="center|right|end"
                     android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/reTitle5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="10dp"
+                        android:text="Apartment List"
+                        android:textAlignment="viewStart"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
                     <Button
                         android:id="@+id/btn_addProperty"
                         android:layout_width="60dp"
