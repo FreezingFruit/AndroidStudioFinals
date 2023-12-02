@@ -9,6 +9,7 @@ import com.example.mobcomfinals.model.ProfileModel
 import com.example.mobcomfinals.model.PropertyModel
 import com.example.mobcomfinals.states.StorageStates
 import com.example.mobcomfinals.viewmodel.NODE_OWNEDPROPERTY
+import com.example.mobcomfinals.viewmodel.NODE_PROPERTY_IMAGES
 import com.example.mobcomfinals.viewmodel.NODE_USER
 import com.example.mobcomfinals.viewmodel.NODE_USERINFORMATION
 import com.example.mobcomfinals.viewmodel.NODE_USER_IMAGES
@@ -30,6 +31,7 @@ class AuthenticationViewModel:ViewModel() {
     private val database = FirebaseDatabase.getInstance()
     private val auth = Firebase.auth
     private val ref = Firebase.database.reference
+
     private var state = MutableLiveData<StorageStates>()
     private var states = MutableLiveData<AuthenticationStates>()
     private val refUser = database.getReference(NODE_USER)
@@ -88,17 +90,15 @@ class AuthenticationViewModel:ViewModel() {
         ref.child(NODE_USER).child(auth.currentUser?.uid!!).child(NODE_USERINFORMATION).addValueEventListener(objectListener)
     }
 
-    fun updateUserProfile(newName : String) {
-        val userUpdates = userProfileChangeRequest {
-            displayName = newName
-        }
+    fun updateUserProfile(img: ByteArray, profile: ProfileModel) {
+        val userRef = fb_storage.child("${profile.id!!}.jpg")
 
-        auth.currentUser?.updateProfile(userUpdates)?.addOnCompleteListener {
-            if(it.isSuccessful) states.value = AuthenticationStates.ProfileUpdated
-            else states.value = AuthenticationStates.Error
+        userRef.putBytes(img).addOnSuccessListener {
+            userRef.downloadUrl.addOnSuccessListener {
+                val user = ProfileModel(profile.id, it.toString() ,profile.email, profile.contactNumber, profile.username)
+                refUser.child(auth.currentUser?.uid.toString()).child(NODE_USERINFORMATION).setValue(user)
 
-        }?.addOnFailureListener {
-            states.value = AuthenticationStates.Error
+            }
         }
     }
 

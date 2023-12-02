@@ -32,6 +32,8 @@ class EditPropertyActivity : AppCompatActivity() {
         val position = intent.getStringExtra("position" )
 
         binding.inputPropertyName.setText(property?.propertyName)
+        binding.inputPropertyBedroom.setText(property?.propertyBedrooms)
+        binding.inputPropertyBathroom.setText(property?.propertyBathrooms)
         binding.inputPropertyDescription.setText(property?.propertyInformation)
         binding.inputPropertyEmailSeller.setText(property?.propertySeller)
         binding.inputPropertyNumberSeller.setText(property?.propertySellerNumber)
